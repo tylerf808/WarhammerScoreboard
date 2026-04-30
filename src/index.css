@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-card: rgba(19, 19, 26, 0.85);
+  --bg-card-hover: rgba(26, 26, 36, 0.88);
+  --border: #2a2a3a;
+  --gold: #c9a84c;
+  --gold-dim: #8a6d2b;
+  --red: #b91c1c;
+  --red-glow: #ef4444;
+  --blue: #15803d;
+  --blue-glow: #4ade80;
+  --green: #16a34a;
+  --text: #d1d5db;
+  --text-bright: #f3f4f6;
+  --text-dim: #6b7280;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

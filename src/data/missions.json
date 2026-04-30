@@ -1,0 +1,603 @@
+{
+  "primaryMissions": [
+    {
+      "id": "linchpin",
+      "title": "Linchpin",
+      "flavor": "True victory is built upon a firm foundation. If you cannot hold the centre, then all else will crumble swiftly.",
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of the Command phase (or the end of your turn if it is the fifth battle round and you are going second).",
+      "scoring": [
+        {
+          "condition": "If the player whose turn it is does not control the objective marker in their deployment zone, they score 3VP for each objective marker they control.",
+          "vp": "3VP each"
+        },
+        {
+          "condition": "If the player whose turn it is controls the objective marker in their deployment zone, they score 3VP for controlling that objective marker, and 5VP for each other objective marker they control (up to 15VP per turn).",
+          "vp": "3VP + 5VP each (up to 15VP)"
+        }
+      ]
+    },
+    {
+      "id": "burden-of-trust",
+      "title": "Burden of Trust",
+      "flavor": "The strategic prizes in this region must be guarded at all costs — a duty that falls upon a chosen few.",
+      "specialRule": "At the end of the Command phase, for each objective marker the player whose turn it is controls, they can select one unit from their army (excluding AIRCRAFT) within range of that objective marker to guard it until the start of their next turn.",
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of the Command phase (or the end of your turn if it is the fifth battle round and you are going second).",
+      "scoring": [
+        {
+          "condition": "The player whose turn it is scores 4VP for each objective marker they control that is not within their deployment zone.",
+          "vp": "4VP each"
+        },
+        {
+          "condition": "The opponent of the player whose turn it is scores 2VP for each of their units (excluding Battle-shocked units) that are within range of and guarding an objective marker they control.",
+          "vp": "2VP each (opponent scores)"
+        }
+      ],
+      "designerNote": "Note that the player going second has the first chance to score VP in this way, as they can guard objectives in their first turn and score VP in their opponent's next turn."
+    },
+    {
+      "id": "take-and-hold",
+      "title": "Take and Hold",
+      "flavor": "Several strategic locations have been identified in your vicinity. Your orders are to assault these positions, secure them and hold them at any cost.",
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of the Command phase (or the end of your turn if it is the fifth battle round and you are going second).",
+      "scoring": [
+        {
+          "condition": "The player whose turn it is scores 5VP for each objective marker they control (up to 15VP per turn).",
+          "vp": "5VP each (up to 15VP)"
+        }
+      ]
+    },
+    {
+      "id": "terraform",
+      "title": "Terraform",
+      "flavor": "Victory here lies in shaping the landscape of the battlefield.",
+      "action": {
+        "name": "TERRAFORM",
+        "starts": "Your Shooting phase.",
+        "units": "One or more units from your army, each within range of a different objective marker that is not within your deployment zone.",
+        "completes": "End of the turn, if the unit performing this Action is still within range of the same objective marker and you control that objective marker.",
+        "ifCompleted": "Each of those objective markers is terraformed by you. If that objective marker was terraformed by your opponent, it no longer is."
+      },
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of the Command phase (or the end of your turn if it is the fifth battle round and you are going second).",
+      "scoring": [
+        {
+          "condition": "The player whose turn it is scores 4VP for each objective marker they control (up to 12VP per turn).",
+          "vp": "4VP each (up to 12VP)"
+        },
+        {
+          "condition": "Each player scores 1VP for each objective marker that is terraformed by them.",
+          "vp": "1VP each (end of turn)"
+        }
+      ]
+    },
+    {
+      "id": "purge-the-foe",
+      "title": "Purge the Foe",
+      "flavor": "Exterminate the enemy. Show them no mercy.",
+      "timing": "ANY BATTLE ROUND / SECOND BATTLE ROUND ONWARDS",
+      "when": "End of the battle round / End of the Command phase.",
+      "scoring": [
+        {
+          "condition": "Each player scores 4VP if one or more enemy units were destroyed this battle round.",
+          "vp": "4VP"
+        },
+        {
+          "condition": "Each player scores 4VP if more enemy units than friendly units were destroyed this battle round.",
+          "vp": "4VP"
+        },
+        {
+          "condition": "The player whose turn it is scores 4VP if they control one or more objective markers, and an additional 4VP if they control more objective markers than their opponent controls.",
+          "vp": "4VP + 4VP"
+        }
+      ]
+    },
+    {
+      "id": "scorched-earth",
+      "title": "Scorched Earth",
+      "flavor": "What cannot be secured must be burned to ash.",
+      "action": {
+        "name": "BURN OBJECTIVE",
+        "starts": "Your Shooting phase, from the second battle round onwards.",
+        "units": "One unit from your army within range of an objective marker that is not within your deployment zone.",
+        "completes": "End of your opponent's next turn or the end of the battle (whichever comes first), if your unit is still within range of the same objective marker and you control that objective marker.",
+        "ifCompleted": "That objective marker is burned and removed from the battlefield."
+      },
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "Any time / End of the Command phase.",
+      "scoring": [
+        {
+          "condition": "Each time a player burns an objective marker, that player scores 5VP if that objective marker was in No Man's Land, or 10VP instead if that objective marker was in their opponent's deployment zone.",
+          "vp": "5VP / 10VP"
+        },
+        {
+          "condition": "The player whose turn it is scores 5VP for each objective marker they control (up to 10VP per turn).",
+          "vp": "5VP each (up to 10VP)"
+        }
+      ]
+    },
+    {
+      "id": "unexploded-ordnance",
+      "title": "Unexploded Ordnance",
+      "flavor": "Volatile undetonated material lies in your path. Shifting such hazards towards enemy territory could be the key to victory.",
+      "specialRule": "Start of the Battle: Each objective marker within No Man's Land becomes a Hazard objective marker.",
+      "action": {
+        "name": "MOVE HAZARD",
+        "starts": "Your Shooting phase.",
+        "units": "One or more units from your army, each within range of a different Hazard objective marker you control.",
+        "completes": "End of your turn, if the unit performing this Action is still within range of the same Hazard objective marker and you control that objective marker.",
+        "ifCompleted": "You can move each of those Hazard objective markers up to 6\". When doing so, that objective marker cannot end that move on top of any other objective marker or model, or inside impassable parts of terrain features."
+      },
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of each player's turn.",
+      "scoring": [
+        {
+          "condition": "8VP for each Hazard objective marker that is wholly within their opponent's deployment zone.",
+          "vp": "8VP each"
+        },
+        {
+          "condition": "5VP for each other Hazard objective marker that is wholly within 6\" of their opponent's deployment zone.",
+          "vp": "5VP each"
+        },
+        {
+          "condition": "2VP for each other Hazard objective marker that is wholly within 12\" of their opponent's deployment zone.",
+          "vp": "2VP each"
+        }
+      ]
+    },
+    {
+      "id": "hidden-supplies",
+      "title": "Hidden Supplies",
+      "flavor": "Reconnaissance units have uncovered a hidden cache of materiel in this war zone.",
+      "specialRule": "In the Place Objective Markers step, players must set up one additional objective marker in No Man's Land. Before setting up this new objective marker, players must first move the objective marker in the centre of the battlefield 6\" directly towards one of the corners of the battlefield (if No Man's Land touches any of the corners of the battlefield, you must move the objective marker towards one of those corners). Otherwise, the players roll off, and the winner selects which corner the objective marker is moved towards. Players then set up the new objective marker 6\" from the centre of the battlefield towards the diagonally opposite corner.",
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of the Command phase (or the end of your turn if it is the fifth battle round and you are going second).",
+      "scoring": [
+        {
+          "condition": "5VP if they control one objective marker not within their deployment zone.",
+          "vp": "5VP"
+        },
+        {
+          "condition": "5VP if they control two objective markers not within their deployment zone.",
+          "vp": "+5VP (cumulative)"
+        },
+        {
+          "condition": "5VP if they control more objective markers than their opponent controls.",
+          "vp": "+5VP (cumulative)"
+        }
+      ]
+    },
+    {
+      "id": "the-ritual",
+      "title": "The Ritual",
+      "flavor": "Bitter foes clash in a race to finish a ritual to either sanctify or corrupt the battlefield.",
+      "action": {
+        "name": "THE RITUAL",
+        "starts": "Your Shooting phase.",
+        "units": "One unit from your army.",
+        "completes": "End of your turn.",
+        "ifCompleted": "Set up one objective marker anywhere on the battlefield wholly within No Man's Land and within 1\" of your unit, provided it can be set up exactly 12\" from one other objective marker within No Man's Land and not within 6\" of any other objective marker."
+      },
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of the Command phase (or the end of your turn if it is the fifth battle round and you are going second).",
+      "scoring": [
+        {
+          "condition": "The player whose turn it is scores 5VP for each objective marker in No Man's Land that they control (up to 15VP per turn).",
+          "vp": "5VP each (up to 15VP)"
+        }
+      ]
+    },
+    {
+      "id": "supply-drop",
+      "title": "Supply Drop",
+      "flavor": "Supplies are inbound. Secure the drop site.",
+      "specialRule": "Start of the Battle: Players randomly select two different objective markers within No Man's Land that are not in the centre of the battlefield; the first selected is the Alpha objective, the second is the Omega objective. Start of the Fourth Battle Round: The Alpha objective is removed. Start of the Fifth Battle Round: The Omega objective is removed.",
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of the Command phase (or the end of your turn if it is the fifth battle round and you are going second).",
+      "scoring": [
+        {
+          "condition": "5VP for each objective marker in No Man's Land they control (battle rounds 2-3).",
+          "vp": "5VP each (rounds 2-3)"
+        },
+        {
+          "condition": "8VP for each objective marker in No Man's Land they control (battle round 4).",
+          "vp": "8VP each (round 4)"
+        },
+        {
+          "condition": "15VP for each objective marker in No Man's Land they control (battle round 5).",
+          "vp": "15VP each (round 5)"
+        }
+      ]
+    }
+  ],
+  "secondaryMissions": [
+    {
+      "id": "behind-enemy-lines",
+      "fixed": true,
+      "title": "Behind Enemy Lines",
+      "flavor": "Your orders are clear: break through the enemy and cut off their escape routes.",
+      "whenDrawn": "If it is the first battle round, you can draw a new Secondary Mission card and shuffle this card back into your Secondary Mission deck.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "One unit from your army (excluding AIRCRAFT and Battle-shocked units) is wholly within your opponent's deployment zone.",
+          "vp": "3VP"
+        },
+        {
+          "condition": "Two or more units from your army (excluding AIRCRAFT and Battle-shocked units) are wholly within your opponent's deployment zone.",
+          "vp": "4VP"
+        }
+      ]
+    },
+    {
+      "id": "storm-hostile-objective",
+      "fixed": true,
+      "title": "Storm Hostile Objective",
+      "flavor": "You must dominate the field of battle. Storm every site of tactical import and leave the foe with no place to hide.",
+      "whenDrawn": "If it is the first battle round, you can draw a new Secondary Mission card and shuffle this card back into your Secondary Mission deck.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "You control one or more objective markers that were controlled by your opponent at the start of the turn.",
+          "vp": "4VP"
+        },
+        {
+          "condition": "Your opponent did not control any objective markers at the start of the turn, and you control one or more objective markers that you did not control at the start of the turn. (Second battle round onwards)",
+          "vp": "4VP"
+        }
+      ]
+    },
+    {
+      "id": "engage-on-all-fronts",
+      "fixed": true,
+      "title": "Engage on All Fronts",
+      "flavor": "This area is of extreme importance. You are to lead an immediate all-out assault to capture it and deny it to our enemy for good.",
+      "whenDrawn": "If one or more units from your army (excluding AIRCRAFT and Battle-shocked units) are wholly within a table quarter, and those units are more than 6\" away from the centre of the battlefield, you have a presence in that table quarter.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "You have a presence in two table quarters.",
+          "vp": "1VP"
+        },
+        {
+          "condition": "You have a presence in three table quarters.",
+          "vp": "2VP"
+        },
+        {
+          "condition": "You have a presence in four table quarters.",
+          "vp": "4VP"
+        }
+      ]
+    },
+    {
+      "id": "establish-locus",
+      "fixed": true,
+      "title": "Establish Locus",
+      "flavor": "You must guide allied forces onto the battlefield by any means necessary; this objective must be completed swiftly to pave the road to victory.",
+      "action": {
+        "name": "ESTABLISH LOCUS",
+        "starts": "Your Shooting phase.",
+        "units": "One unit from your army.",
+        "completes": "End of your turn, if that unit is within your opponent's deployment zone or within 6\" of the centre of the battlefield.",
+        "ifCompleted": "Your unit establishes a locus."
+      },
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "Your unit established a locus this turn and is within 6\" of the centre of the battlefield.",
+          "vp": "2VP"
+        },
+        {
+          "condition": "Your unit established a locus this turn and is within your opponent's deployment zone.",
+          "vp": "4VP"
+        }
+      ]
+    },
+    {
+      "id": "cleanse",
+      "fixed": true,
+      "title": "Cleanse",
+      "flavor": "Your forces have identified a series of tainted objectives in this area; these locations must be purified.",
+      "action": {
+        "name": "CLEANSE",
+        "starts": "Your Shooting phase.",
+        "units": "One or more units from your army within range of an objective marker that is not within your deployment zone.",
+        "completes": "End of your turn, if the unit performing this Action is still within range of the same objective marker and you control that objective marker.",
+        "ifCompleted": "That objective marker is cleansed by your army."
+      },
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "One objective marker was cleansed by your army this turn.",
+          "vp": "2VP"
+        },
+        {
+          "condition": "Two or more objective markers were cleansed by your army this turn.",
+          "vp": "4VP (Fixed) / 5VP (Tactical)"
+        }
+      ]
+    },
+    {
+      "id": "assassination",
+      "fixed": true,
+      "title": "Assassination",
+      "flavor": "The enemy looks to their champions for courage. You must identify and eliminate such targets with extreme prejudice.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "While this card is active (Fixed) / End of either player's turn (Tactical).",
+      "scoring": [
+        {
+          "condition": "Each time an enemy CHARACTER model with a Wounds characteristic of 4 or higher is destroyed.",
+          "vp": "4VP (Fixed)"
+        },
+        {
+          "condition": "Each time an enemy CHARACTER model with a Wounds characteristic of less than 4 is destroyed.",
+          "vp": "3VP (Fixed)"
+        },
+        {
+          "condition": "One or more enemy CHARACTER models were destroyed this turn.",
+          "vp": "5VP (Tactical)"
+        },
+        {
+          "condition": "All enemy CHARACTER models have been destroyed during the battle.",
+          "vp": "5VP (Tactical)"
+        }
+      ]
+    },
+    {
+      "id": "no-prisoners",
+      "fixed": true,
+      "title": "No Prisoners",
+      "flavor": "Show no mercy. Exterminate your enemies.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "While this card is active.",
+      "scoring": [
+        {
+          "condition": "Each time an enemy Bodyguard unit or enemy non-CHARACTER unit is destroyed.",
+          "vp": "2VP (Fixed, up to 5VP)"
+        },
+        {
+          "condition": "Each time an enemy unit is destroyed.",
+          "vp": "2VP (Tactical, up to 5VP)"
+        }
+      ],
+      "note": "This Secondary Mission cannot be selected as a Fixed Mission in tournament play."
+    },
+    {
+      "id": "cull-the-horde",
+      "fixed": true,
+      "title": "Cull the Horde",
+      "flavor": "The enemy come forth in teeming masses. Their ranks must be thinned if the day is to be won.",
+      "whenDrawn": "If there are no enemy units on the battlefield that satisfy the condition below, you can discard this card and draw a new Secondary Mission card.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "While this card is active (Fixed) / End of either player's turn (Tactical).",
+      "scoring": [
+        {
+          "condition": "Each time an enemy INFANTRY unit with a Starting Strength of 13+ (including Attached units) is destroyed.",
+          "vp": "5VP (Fixed)"
+        },
+        {
+          "condition": "One or more enemy INFANTRY units with a Starting Strength of 13+ (including Attached units) were destroyed this turn.",
+          "vp": "5VP (Tactical)"
+        }
+      ]
+    },
+    {
+      "id": "bring-it-down",
+      "fixed": true,
+      "title": "Bring It Down",
+      "flavor": "The opposing army contains numerous heavily armoured units. You must prioritise their destruction.",
+      "whenDrawn": "If there are no enemy MONSTER or VEHICLE units on the battlefield, you can discard this card and draw a new Secondary Mission card.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "While this card is active (Fixed) / End of either player's turn (Tactical).",
+      "scoring": [
+        {
+          "condition": "Each time an enemy MONSTER or VEHICLE unit is destroyed.",
+          "vp": "2VP (Fixed)"
+        },
+        {
+          "condition": "The total Wounds characteristics of the destroyed unit was 15+ (at Starting Strength).",
+          "vp": "+2VP (Fixed, cumulative)"
+        },
+        {
+          "condition": "The total Wounds characteristics of the destroyed unit was 20+ (at Starting Strength).",
+          "vp": "+2VP (Fixed, cumulative)"
+        },
+        {
+          "condition": "One or more enemy MONSTER or VEHICLE units were destroyed this turn.",
+          "vp": "4VP (Tactical)"
+        }
+      ]
+    },
+    {
+      "id": "defend-stronghold",
+      "fixed": false,
+      "title": "Defend Stronghold",
+      "flavor": "You are charged with the defence of a critical objective. It must not be permitted to fall into enemy hands.",
+      "whenDrawn": "If it is the first battle round, draw a new Secondary Mission card and shuffle this card back into your Secondary Mission deck.",
+      "timing": "SECOND BATTLE ROUND ONWARDS",
+      "when": "End of your opponent's turn or the end of the battle (whichever comes first).",
+      "scoring": [
+        {
+          "condition": "You control one or more objective markers in your deployment zone.",
+          "vp": "3VP"
+        }
+      ]
+    },
+    {
+      "id": "marked-for-death",
+      "fixed": false,
+      "title": "Marked for Death",
+      "flavor": "You have been ordered to eliminate specific enemy assets to ensure victory, no matter how insignificant they may seem.",
+      "whenDrawn": "Your opponent must select three units from their army on the battlefield. If there are only one or two units, they must select those. These are your Alpha Target units. You then select one unit from your opponent's army to be your Gamma Target unit. If there are no units from their army on the battlefield, discard this card and draw a new Secondary Mission card.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of either player's turn.",
+      "scoring": [
+        {
+          "condition": "One or more of your Alpha Target units were destroyed (or removed from the battlefield) this turn.",
+          "vp": "5VP"
+        },
+        {
+          "condition": "None of your Alpha Target units were destroyed this turn, but your Gamma Target unit was destroyed (or removed from the battlefield) this turn.",
+          "vp": "2VP"
+        }
+      ]
+    },
+    {
+      "id": "secure-no-mans-land",
+      "fixed": false,
+      "title": "Secure No Man's Land",
+      "flavor": "You must advance swiftly into no man's land and seize it before the enemy can, lest they take control of the entire battlefield.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "You control one objective marker in No Man's Land.",
+          "vp": "2VP"
+        },
+        {
+          "condition": "You control two or more objective markers in No Man's Land.",
+          "vp": "5VP"
+        }
+      ]
+    },
+    {
+      "id": "sabotage",
+      "fixed": false,
+      "title": "Sabotage",
+      "flavor": "This region is replete with strategic assets or supply caches vital to your foe. See to it that they are reduced to just so much flaming wreckage.",
+      "action": {
+        "name": "SABOTAGE",
+        "starts": "Your Shooting phase.",
+        "units": "One unit from your army that is within a terrain feature and not within your deployment zone.",
+        "completes": "End of your opponent's next turn or the end of the battle (whichever comes first), if your unit is on the battlefield.",
+        "ifCompleted": "Your unit commits sabotage."
+      },
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your opponent's turn or the end of the battle (whichever comes first).",
+      "scoring": [
+        {
+          "condition": "Your unit committed sabotage this turn and is not within your opponent's deployment zone.",
+          "vp": "3VP"
+        },
+        {
+          "condition": "Your unit committed sabotage this turn and is within your opponent's deployment zone.",
+          "vp": "6VP"
+        }
+      ]
+    },
+    {
+      "id": "area-denial",
+      "fixed": false,
+      "title": "Area Denial",
+      "flavor": "It is critical that this area is dominated. No enemy vanguard or guerrilla units can be allowed to disrupt your plans.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "One or more units from your army (excluding AIRCRAFT and Battle-shocked units) are within 3\" of the centre of the battlefield, and there are no enemy units within 3\" of the centre.",
+          "vp": "2VP"
+        },
+        {
+          "condition": "One or more units from your army (excluding AIRCRAFT and Battle-shocked units) are within 3\" of the centre of the battlefield, and there are no enemy units within 6\" of the centre.",
+          "vp": "5VP"
+        }
+      ]
+    },
+    {
+      "id": "recover-assets",
+      "fixed": false,
+      "title": "Recover Assets",
+      "flavor": "You must locate and reclaim scattered strategic assets.",
+      "whenDrawn": "If you are playing an Incursion mission, or if there are fewer than three units from your army on the battlefield, you can discard this card and draw a new Secondary Mission card.",
+      "action": {
+        "name": "RECOVER ASSETS",
+        "starts": "Your Shooting phase.",
+        "units": "Two or more units from your army, if each of those units is wholly within a different one of the following areas: your deployment zone; No Man's Land; your opponent's deployment zone.",
+        "completes": "End of your turn, if either two or three of those units are on the battlefield.",
+        "ifCompleted": "Those units recover assets."
+      },
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn or the end of the battle (whichever comes first).",
+      "scoring": [
+        {
+          "condition": "Two of your units recovered assets this turn.",
+          "vp": "3VP"
+        },
+        {
+          "condition": "Three or more of your units recovered assets this turn.",
+          "vp": "5VP"
+        }
+      ]
+    },
+    {
+      "id": "a-tempting-target",
+      "fixed": false,
+      "title": "A Tempting Target",
+      "flavor": "An opportunity to seize a valuable asset has been identified, but the enemy are likely to use it as bait in a trap. Move to secure the site, but be wary of enemy ambushes.",
+      "whenDrawn": "Your opponent must select one objective in No Man's Land to be your Tempting Target objective marker.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of either player's turn.",
+      "scoring": [
+        {
+          "condition": "You control your Tempting Target objective marker.",
+          "vp": "5VP"
+        }
+      ]
+    },
+    {
+      "id": "extend-battle-lines",
+      "fixed": false,
+      "title": "Extend Battle Lines",
+      "flavor": "The battleground is conquered one yard at a time. Lead your forces forward and establish a strong presence in the area.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "You control one or more objective markers within your deployment zone and one or more objective markers within No Man's Land.",
+          "vp": "4VP"
+        },
+        {
+          "condition": "You control one or more objective markers within No Man's Land.",
+          "vp": "2VP"
+        }
+      ]
+    },
+    {
+      "id": "overwhelming-force",
+      "fixed": false,
+      "title": "Overwhelming Force",
+      "flavor": "You must scour the enemy from the face of the battlefield.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "While this card is active.",
+      "scoring": [
+        {
+          "condition": "Each time an enemy unit that started the turn within range of an objective marker is destroyed.",
+          "vp": "3VP (up to 5VP)"
+        }
+      ],
+      "designerNote": "Destroyed Leader and Bodyguard units count separately for the purposes of scoring this Secondary Mission, provided that Attached unit started the turn within range of an objective marker."
+    },
+    {
+      "id": "display-of-might",
+      "fixed": false,
+      "title": "Display of Might",
+      "flavor": "Intimidation is the most potent of weapons. Degrade the combat abilities of your opponent to demonstrate your superiority and erode enemy morale.",
+      "whenDrawn": "If it is the first battle round, draw a new Secondary Mission card and shuffle this card back into your Secondary Mission deck.",
+      "timing": "ANY BATTLE ROUND",
+      "when": "End of your turn.",
+      "scoring": [
+        {
+          "condition": "There are more units from your army than from your opponent's army wholly within No Man's Land.",
+          "vp": "4VP"
+        }
+      ]
+    }
+  ]
+}
