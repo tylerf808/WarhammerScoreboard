@@ -107,6 +107,14 @@ export function useSocket() {
     socketRef.current?.emit('game:adminSetRound', { round });
   }, []);
 
+  const roll = useCallback(() => {
+    socketRef.current?.emit('game:roll');
+  }, []);
+
+  const advancePhase = useCallback(() => {
+    socketRef.current?.emit('game:advancePhase');
+  }, []);
+
   return {
     connected,
     roomCode,
@@ -128,5 +136,7 @@ export function useSocket() {
     completeSecondary,
     selectFixed,
     adminSetRound,
+    roll,
+    advancePhase,
   };
 }

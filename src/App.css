@@ -860,6 +860,187 @@
   }
 }
 
+/* ===== ROLL PHASE & PRE-BATTLE ===== */
+.roll-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 32px 16px 24px;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.roll-phase-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-align: center;
+}
+
+.roll-players {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+}
+
+.roll-vs {
+  display: flex;
+  align-items: center;
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--gold-dim);
+  letter-spacing: 3px;
+  flex-shrink: 0;
+}
+
+.roll-player-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.3s;
+  min-width: 0;
+}
+
+.roll-player-card.roll-winner {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.25);
+}
+
+.roll-player-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 1px;
+  text-align: center;
+  word-break: break-word;
+}
+
+.roll-player-faction {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-align: center;
+  word-break: break-word;
+}
+
+.roll-result-number {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--gold);
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.roll-result-number:has(~ .roll-btn) {
+  /* spacing when button follows */
+}
+
+.roll-btn {
+  font-size: 0.75rem;
+  padding: 10px 16px;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.roll-result-message {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+  min-height: 1.5em;
+}
+
+.roll-result-tie {
+  color: var(--red-glow);
+}
+
+.roll-result-winner {
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(201, 168, 76, 0.4);
+}
+
+.roll-deploy-message {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 14px 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.roll-advance-btn {
+  width: 100%;
+  max-width: 320px;
+  font-size: 0.9rem;
+  padding: 14px 24px;
+  letter-spacing: 3px;
+}
+
+/* Pre-battle card */
+.pre-battle-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.pre-battle-message {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.pre-battle-first-player {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  line-height: 1.7;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.pre-battle-name {
+  color: var(--gold);
+  font-weight: 700;
+}
+
 /* ===== MISSIONS ===== */
 .primary-mission-section {
   width: 40%;

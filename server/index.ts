@@ -114,23 +114,25 @@ function tryStartGame(room: GameRoom) {
   );
   if (ready.length !== 2 || room.game !== null) return;
 
-  // Randomly assign attacker/defender
-  const shuffled = Math.random() < 0.5 ? [ready[0], ready[1]] : [ready[1], ready[0]];
-  shuffled[0].role = 'attacker';
-  shuffled[1].role = 'defender';
+  // Assign slots: p0 = attacker slot, p1 = defender slot (rolls determine final roles)
+  ready[0].role = 'attacker';
+  ready[1].role = 'defender';
 
   room.game = {
+    phase: 'roll-attacker',
+    rolls: { attacker: null, defender: null },
     battleRound: 1,
     currentTurn: 'attacker',
-    attacker: makePlayer(shuffled[0].name, shuffled[0].faction),
-    defender: makePlayer(shuffled[1].name, shuffled[1].faction),
+    firstTurn: 'attacker',
+    attacker: makePlayer(ready[0].name, ready[0].faction),
+    defender: makePlayer(ready[1].name, ready[1].faction),
     maxRounds: 5,
     gameOver: false,
     primaryMissionId: null,
     options: room.options,
   };
 
-  for (const p of shuffled) {
+  for (const p of ready) {
     if (p.socketId) {
       io.to(p.socketId).emit('game:assigned', { role: p.role!, isAdmin: false });
     }
@@ -319,15 +321,20 @@ io.on('connection', (socket) => {
     room.game.attacker.cp += 1;
     room.game.defender.cp += 1;
 
-    if (room.game.currentTurn === 'attacker') {
-      room.game.currentTurn = 'defender';
+    const { firstTurn } = room.game;
+    const secondTurn: 'attacker' | 'defender' = firstTurn === 'attacker' ? 'defender' : 'attacker';
+
+    if (room.game.currentTurn !== secondTurn) {
+      // First player just ended — move to second player
+      room.game.currentTurn = secondTurn;
     } else {
+      // Second player just ended — advance round, back to first player
       const nextRound = room.game.battleRound + 1;
       if (nextRound > room.game.maxRounds) {
         room.game.gameOver = true;
       } else {
         room.game.battleRound = nextRound;
-        room.game.currentTurn = 'attacker';
+        room.game.currentTurn = firstTurn;
       }
     }
     broadcastGame(room);
@@ -341,9 +348,13 @@ io.on('connection', (socket) => {
     const p1 = room.players[1];
     if (!p0 || !p1) return;
 
+    const firstTurnReset = room.game.firstTurn;
     room.game = {
+      phase: 'battle',
+      rolls: { attacker: null, defender: null },
       battleRound: 1,
-      currentTurn: 'attacker',
+      currentTurn: firstTurnReset,
+      firstTurn: firstTurnReset,
       attacker: makePlayer(
         (p0.role === 'attacker' ? p0 : p1).name,
         (p0.role === 'attacker' ? p0 : p1).faction,
@@ -357,6 +368,77 @@ io.on('connection', (socket) => {
       primaryMissionId: null,
       options: room.options,
     };
+    broadcastGame(room);
+  });
+
+  socket.on('game:roll', () => {
+    const room = getRoomForSocket(socket.id);
+    if (!room?.game) return;
+    const { phase } = room.game;
+    if (phase !== 'roll-attacker' && phase !== 'roll-first') return;
+
+    const myRole = getRoleForSocket(room, socket.id);
+    if (!myRole) return; // admin cannot roll
+
+    const { attacker: aRoll, defender: dRoll } = room.game.rolls;
+    // If both rolled and tied, reset so both can roll again
+    if (aRoll !== null && dRoll !== null && aRoll === dRoll) {
+      room.game.rolls = { attacker: null, defender: null };
+    }
+
+    if (room.game.rolls[myRole] !== null) return; // already rolled
+
+    room.game.rolls[myRole] = Math.floor(Math.random() * 6) + 1;
+
+    // Check if both have now rolled
+    const newA = room.game.rolls.attacker;
+    const newD = room.game.rolls.defender;
+    if (newA !== null && newD !== null && newA !== newD && phase === 'roll-attacker') {
+      if (newD > newA) {
+        // Defender slot rolled higher — they become the real attacker; swap player data and roles
+        const tmpPlayer = room.game.attacker;
+        room.game.attacker = room.game.defender;
+        room.game.defender = tmpPlayer;
+        room.game.rolls = { attacker: newD, defender: newA };
+        for (const p of room.players) {
+          if (p) p.role = p.role === 'attacker' ? 'defender' : 'attacker';
+        }
+        // Re-send updated roles to each player
+        for (const p of room.players) {
+          if (p?.socketId && p.connected && p.role) {
+            io.to(p.socketId).emit('game:assigned', { role: p.role, isAdmin: false });
+          }
+        }
+      }
+      // else attacker slot already has higher roll — no change needed
+    }
+
+    broadcastGame(room);
+  });
+
+  socket.on('game:advancePhase', () => {
+    const room = getRoomForSocket(socket.id);
+    if (!room?.game) return;
+    const myRole = getRoleForSocket(room, socket.id);
+    const isAdmin = socket.id === room.adminSocketId;
+    if (!myRole && !isAdmin) return;
+
+    const { phase, rolls } = room.game;
+    if (phase === 'roll-attacker') {
+      if (rolls.attacker === null || rolls.defender === null || rolls.attacker === rolls.defender) return;
+      room.game.phase = 'roll-first';
+      room.game.rolls = { attacker: null, defender: null };
+    } else if (phase === 'roll-first') {
+      if (rolls.attacker === null || rolls.defender === null || rolls.attacker === rolls.defender) return;
+      const first: 'attacker' | 'defender' = rolls.attacker > rolls.defender ? 'attacker' : 'defender';
+      room.game.currentTurn = first;
+      room.game.firstTurn = first;
+      room.game.phase = 'pre-battle';
+      room.game.rolls = { attacker: null, defender: null };
+    } else if (phase === 'pre-battle') {
+      room.game.phase = 'battle';
+    }
+
     broadcastGame(room);
   });
 

@@ -14,8 +14,11 @@ export interface PlayerState {
 }
 
 export interface GameState {
+  phase: 'roll-attacker' | 'roll-first' | 'pre-battle' | 'battle';
+  rolls: { attacker: number | null; defender: number | null };
   battleRound: number;
   currentTurn: 'attacker' | 'defender';
+  firstTurn: 'attacker' | 'defender';
   attacker: PlayerState;
   defender: PlayerState;
   maxRounds: number;

@@ -9,6 +9,8 @@ import SecondaryMissionPanel from './components/SecondaryMissionPanel';
 import HomeScreen from './components/HomeScreen';
 import JoinScreen from './components/JoinScreen';
 import LobbyScreen from './components/LobbyScreen';
+import RollPhaseScreen from './components/RollPhaseScreen';
+import PreBattleScreen from './components/PreBattleScreen';
 import './App.css';
 
 type Screen = 'home' | 'joining' | 'lobby' | 'playing';
@@ -35,6 +37,8 @@ function App() {
     completeSecondary,
     selectFixed,
     adminSetRound,
+    roll,
+    advancePhase,
   } = useSocket();
 
   const [screen, setScreen] = useState<Screen>('home');
@@ -111,6 +115,34 @@ function App() {
 
   // ── Screen: Playing ───────────────────────────────────────
   if (screen === 'playing' && game && (myRole || isAdmin)) {
+    const phase = game.phase ?? 'battle';
+
+    // ── Roll phase (attacker determination or first-player determination)
+    if (phase === 'roll-attacker' || phase === 'roll-first') {
+      return (
+        <RollPhaseScreen
+          game={game}
+          myRole={myRole}
+          isAdmin={isAdmin}
+          roomCode={roomCode ?? ''}
+          onRoll={roll}
+          onAdvance={advancePhase}
+        />
+      );
+    }
+
+    // ── Pre-battle phase
+    if (phase === 'pre-battle') {
+      return (
+        <PreBattleScreen
+          game={game}
+          roomCode={roomCode ?? ''}
+          onAdvance={advancePhase}
+        />
+      );
+    }
+
+    // ── Battle phase
     const canEndTurn = !game.gameOver && (isAdmin || game.currentTurn === myRole);
 
     return (
@@ -200,6 +232,7 @@ function App() {
           onReset={resetGame}
           gameOver={game.gameOver}
           canEndTurn={canEndTurn}
+          isAdmin={isAdmin}
         />
 
         {(game.options?.includePrimary ?? true) && (

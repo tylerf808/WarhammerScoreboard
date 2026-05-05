@@ -3,6 +3,7 @@ interface ControlPanelProps {
   onReset: () => void;
   gameOver: boolean;
   canEndTurn: boolean;
+  isAdmin: boolean;
 }
 
 export default function ControlPanel({
@@ -10,6 +11,7 @@ export default function ControlPanel({
   onReset,
   gameOver,
   canEndTurn,
+  isAdmin,
 }: ControlPanelProps) {
   return (
     <div className="control-panel">
@@ -26,9 +28,11 @@ export default function ControlPanel({
           GAME COMPLETE
         </button>
       )}
-      <button className="btn btn-reset" onClick={onReset}>
-        RESET GAME
-      </button>
+      {isAdmin && (
+        <button className="btn btn-reset" onClick={onReset}>
+          RESET GAME
+        </button>
+      )}
     </div>
   );
 }
